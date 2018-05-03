@@ -1,5 +1,5 @@
 # Main LICENSE
-### This software is using multiple licenses. It is your responsibility to ensure that you are using the correct licensing for your own work! Unless stated otherwise in [Usage LICENSES](#Usage-LICENSES), the content of this software is licensed under:
+### This software is using multiple licenses. It is your responsibility to ensure that you are using the correct licensing for your own work! Unless stated otherwise in [Usage LICENSES](#usage-licenses), the content of this software is licensed under:
 ## The Non-Profit Open Software License version 3.0 [(NPOSL-3.0)](https://opensource.org/licenses/NPOSL-3.0)
 # Usage LICENSES
 ## Third-party libraries:
@@ -15,6 +15,7 @@
 |[LoopStream](https://markheath.net/post/looped-playback-in-net-with-naudio)|[Ms-PL](https://github.com/naudio/NAudio/blob/master/license.txt)|
 |[Flash_Window_Handler](https://www.pinvoke.net/default.aspx/user32.FlashWindowEx)|[License](https://www.pinvoke.net/termsofuse.htm)|
 |[Keyboard_Simulator](https://www.pinvoke.net/default.aspx/user32.keybd_event)|[License](https://www.pinvoke.net/termsofuse.htm)|
+
 ¹ as stated in [here](https://msdn.microsoft.com/en-us/cc300389.aspx)
 ## Resources:
 |Resource:|License:|
