@@ -100,7 +100,7 @@ Public Class Form_Main
         Language_Library_DE.s_rb_10_min = "10 Min."
         Language_Library_DE.s_rb_15_min = "15 Min."
         Language_Library_DE.s_lbl_volume = "Alarm-" + Environment.NewLine + "Lautstärke"
-        Language_Library_DE.s_lbl_version = "Version: 2.0 | Datum: 05 / 18"
+        Language_Library_DE.s_lbl_version = "Version: 2.1 | Datum: 07 / 18"
         Language_Library_DE.s_dl_counter = "Anzahl der Downloads:"
         Language_Library_DE.s_dl_traffic = "Ungefähre Download-Menge:"
         Language_Library_DE.s_msg_general_content = "Ein Fehler ist aufgetreten! Die Datei konnte nicht heruntergeladen werden!"
@@ -146,7 +146,7 @@ Public Class Form_Main
         Language_Library_EN.s_rb_10_min = "10 min."
         Language_Library_EN.s_rb_15_min = "15 min."
         Language_Library_EN.s_lbl_volume = "Alarm-" + Environment.NewLine + "Volume"
-        Language_Library_EN.s_lbl_version = "Version: 2.0 | Date: 05 / 18"
+        Language_Library_EN.s_lbl_version = "Version: 2.1 | Date: 07 / 18"
         Language_Library_EN.s_dl_counter = "Number of times downloaded:"
         Language_Library_EN.s_dl_traffic = "Approximate download traffic:"
         Language_Library_EN.s_msg_general_content = "An error has occured! The file could not be downloaded!"
@@ -526,10 +526,17 @@ Public Class Form_Main
         Dim name As String
         Dim value As UInteger
         Dim s_max As String
+        Dim active As Boolean = False
         Dim max As UInteger
         'Check if project is live
-        Dim status As HtmlNode = doc.DocumentNode.SelectSingleNode("//*[@id='project_duration_data']")
-        If IsNothing(status) Then
+        Dim nodes_btn As HtmlNodeCollection = doc.DocumentNode.SelectNodes("//*[contains(concat(' ', @class, ' '), ' bttn-green ')]")
+        For i = 0 To nodes_btn.Count - 1
+            If nodes_btn.Item(i).InnerHtml.ToLower.Contains("back this project") Then
+                active = True
+                Exit For
+            End If
+        Next
+        If active = False Then
             Disable_Timer()
             MessageBox.Show(Lib_Language_Active.s_msg_expired_content, Lib_Language_Active.s_msg_expired_title, MessageBoxButtons.OK, MessageBoxIcon.Error)
             Return False
