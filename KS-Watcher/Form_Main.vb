@@ -10,7 +10,7 @@ Imports NAudio.Wave
 
 Public Class Form_Main
     'Variables
-    Private custom_inteval As Short
+    Private custom_interval As Short
     Private custom_counter As Short
     Private counter_dl_number As Long
     Private counter_dl_size As Decimal
@@ -26,11 +26,11 @@ Public Class Form_Main
     Public Tiers_Download As New List(Of Tier)
     'Controls
     Public CLV_Tiers As New Listview_Colored
-    Private Btn_Analyze As New Button_Colored
-    Private Btn_Start As New Button_Colored
-    Private Btn_Stop As New Button_Colored
-    Private ToggleSwitch_Lang As New JCS.ToggleSwitch
-    Private Cust_OSX_Style As New ToggleSwitchOSXRenderer
+    Private ReadOnly Btn_Analyze As New Button_Colored
+    Private ReadOnly Btn_Start As New Button_Colored
+    Private ReadOnly Btn_Stop As New Button_Colored
+    Private ReadOnly ToggleSwitch_Lang As New JCS.ToggleSwitch
+    Private ReadOnly Cust_OSX_Style As New ToggleSwitchOSXRenderer
     'Objects
     Private Volume_Player_Waveout As WaveOut
     Private Volume_Player_Reader As WaveFileReader
@@ -100,7 +100,7 @@ Public Class Form_Main
         Language_Library_DE.s_rb_10_min = "10 Min."
         Language_Library_DE.s_rb_15_min = "15 Min."
         Language_Library_DE.s_lbl_volume = "Alarm-" + Environment.NewLine + "Lautstärke"
-        Language_Library_DE.s_lbl_version = "Version: 2.1 | Datum: 07 / 18"
+        Language_Library_DE.s_lbl_version = "Version: 2.2 | Datum: 10 / 19"
         Language_Library_DE.s_dl_counter = "Anzahl der Downloads:"
         Language_Library_DE.s_dl_traffic = "Ungefähre Download-Menge:"
         Language_Library_DE.s_msg_general_content = "Ein Fehler ist aufgetreten! Die Datei konnte nicht heruntergeladen werden!"
@@ -146,7 +146,7 @@ Public Class Form_Main
         Language_Library_EN.s_rb_10_min = "10 min."
         Language_Library_EN.s_rb_15_min = "15 min."
         Language_Library_EN.s_lbl_volume = "Alarm-" + Environment.NewLine + "Volume"
-        Language_Library_EN.s_lbl_version = "Version: 2.1 | Date: 07 / 18"
+        Language_Library_EN.s_lbl_version = "Version: 2.2 | Date: 10 / 19"
         Language_Library_EN.s_dl_counter = "Number of times downloaded:"
         Language_Library_EN.s_dl_traffic = "Approximate download traffic:"
         Language_Library_EN.s_msg_general_content = "An error has occured! The file could not be downloaded!"
@@ -158,7 +158,7 @@ Public Class Form_Main
         Language_Library_EN.s_msg_notiers_content = "No locked tiers were found on this project!"
         Language_Library_EN.s_msg_notiers_title = "Error: No tiers found!"
         Language_Library_EN.s_msg_difftiers_content = "Tiers have been removed or added. Please analyze the project again!"
-        Language_Library_EN.s_msg_difftiers_title = "Fehler: Different tiers!"
+        Language_Library_EN.s_msg_difftiers_title = "Error: Different tiers!"
         Language_Library_EN.s_msg_tieropen_content = "At least one of your selected tiers is available again or has reached your limit!"
         Language_Library_EN.s_msg_tieropen_title = "Attention: Tier open!"
         Language_Library_EN.s_msg_allowdl_content = "This software will continuously download this webpage on your computer!" + Environment.NewLine + "Are you sure you want to continue?"
@@ -182,7 +182,7 @@ Public Class Form_Main
     ''' Switches the language of the GUI. (Note: "en" and "de" only).
     ''' </summary>
     ''' <param name="lang">language as defined in ISO 639-1</param>
-    Private Sub Switch_Language(ByVal lang As String)
+    Private Sub Switch_Language(lang As String)
         Select Case lang
             Case "de"
                 Lib_Language_Active = Language_Library_DE
@@ -213,10 +213,10 @@ Public Class Form_Main
         CLV_Tiers.Columns.Item(0).Text = Lib_Language_Active.s_clv_col_1
         CLV_Tiers.Columns.Item(1).Text = Lib_Language_Active.s_clv_col_2
         CLV_Tiers.Columns.Item(2).Text = Lib_Language_Active.s_clv_col_3
-        If frm_custom_cms IsNot Nothing Then
-            frm_custom_cms.Btn_Change_Limit.Text = Lib_Language_Active.s_btn_change_limit
-            frm_custom_cms.Btn_Select_All.Text = Lib_Language_Active.s_btn_select_all
-            frm_custom_cms.Btn_Deselect_All.Text = Lib_Language_Active.s_btn_deselect_all
+        If Form_Custom_CMS IsNot Nothing Then
+            Form_Custom_CMS.Btn_Change_Limit.Text = Lib_Language_Active.s_btn_change_limit
+            Form_Custom_CMS.Btn_Select_All.Text = Lib_Language_Active.s_btn_select_all
+            Form_Custom_CMS.Btn_Deselect_All.Text = Lib_Language_Active.s_btn_deselect_all
         End If
     End Sub
 
@@ -294,7 +294,7 @@ Public Class Form_Main
         Btn_Stop.Enabled = False
         Rb_2min.Checked = True
         Timer_Downloader.Enabled = False
-        custom_inteval = 0
+        custom_interval = 0
         custom_counter = 0
         counter_dl_number = 0
         counter_dl_size = 0
@@ -387,21 +387,21 @@ Public Class Form_Main
                     counter_dl_size = 0
                     Select Case True
                         Case Rb_10sec.Checked
-                            custom_inteval = 2
+                            custom_interval = 2
                         Case Rb_15sec.Checked
-                            custom_inteval = 3
+                            custom_interval = 3
                         Case Rb_30sec.Checked
-                            custom_inteval = 6
+                            custom_interval = 6
                         Case Rb_1min.Checked
-                            custom_inteval = 12
+                            custom_interval = 12
                         Case Rb_2min.Checked
-                            custom_inteval = 24
+                            custom_interval = 24
                         Case Rb_5min.Checked
-                            custom_inteval = 60
+                            custom_interval = 60
                         Case Rb_10min.Checked
-                            custom_inteval = 120
+                            custom_interval = 120
                         Case Rb_15min.Checked
-                            custom_inteval = 180
+                            custom_interval = 180
                     End Select
                     Timer_Downloader.Start()
                 Else
@@ -516,7 +516,7 @@ Public Class Form_Main
     ''' </summary>
     ''' <param name="initial_analysis">true for intial analysis, false for continuous analysis</param>
     ''' <returns>True if successful, false on error.</returns>
-    Private Function Download_Tiers(ByVal initial_analysis As Boolean) As Boolean
+    Private Function Download_Tiers(initial_analysis As Boolean) As Boolean
         Dim web As New HtmlWeb
         Dim doc As HtmlDocument = web.Load(Tb_Url.Text)
         Dim node As HtmlNode
@@ -526,7 +526,7 @@ Public Class Form_Main
         Dim name As String
         Dim value As UInteger
         Dim s_max As String
-        Dim active As Boolean = False
+        Dim active = False
         Dim max As UInteger
         'Check if project is live
         Dim nodes_btn As HtmlNodeCollection = doc.DocumentNode.SelectNodes("//*[contains(concat(' ', @class, ' '), ' bttn-green ')]")
@@ -549,27 +549,30 @@ Public Class Form_Main
                 'Filter for limited tiers
                 node_limit = node.SelectSingleNode("//*[contains(concat(' ', @class, ' '), ' pledge__limit ')]")
                 If IsNothing(node_limit) = False Then
-                    'Extract values from HTML
-                    node_name = node.SelectSingleNode("//*[contains(concat(' ', @class, ' '), ' pledge__title ')]")
-                    name = HttpUtility.HtmlDecode(Remove_Linebreak(node_name.InnerHtml))
-                    node_value = node.SelectSingleNode("//*[contains(concat(' ', @class, ' '), ' pledge__backer-count ')]")
-                    value = Convert.ToUInt32(Regex.Match(Remove_Linebreak(node_value.InnerHtml), "\d*(,)?\d*").Value.Replace(",", ""))
-                    'Evaluate if tier is locked or still available
-                    If Remove_Linebreak(node_limit.InnerHtml) = "Reward no longer available" Then
-                        max = value
-                    Else
-                        s_max = Regex.Match(node_limit.InnerHtml, "\d*(,)?\d*\)").Value.Replace(",", "")
-                        max = Convert.ToUInt32(Strings.Left(s_max, s_max.Length - 1))
-                    End If
-                    'Add tier
-                    Dim new_tier As Tier
-                    If initial_analysis = True Then
-                        Dim limit As UInteger = Calculate_Limit(value, max)
-                        new_tier = New Tier(name, value, max, limit)
-                        Tiers_Setup.Add(new_tier)
-                    Else
-                        new_tier = New Tier(name, value, max)
-                        Tiers_Download.Add(new_tier)
+                    'Exclude time limited tiers
+                    If node_limit.HasClass("ksr_page_timer") = False Then
+                        'Extract values from HTML
+                        node_name = node.SelectSingleNode("//*[contains(concat(' ', @class, ' '), ' pledge__title ')]")
+                        name = HttpUtility.HtmlDecode(Remove_Linebreak(node_name.InnerHtml))
+                        node_value = node.SelectSingleNode("//*[contains(concat(' ', @class, ' '), ' pledge__backer-count ')]")
+                        value = Convert.ToUInt32(Regex.Match(Remove_Linebreak(node_value.InnerHtml), "\d*(,)?\d*").Value.Replace(",", ""))
+                        'Evaluate if tier is locked or still available
+                        If Remove_Linebreak(node_limit.InnerHtml) = "Reward no longer available" Then
+                            max = value
+                        Else
+                            s_max = Regex.Match(node_limit.InnerHtml, "\d*(,)?\d*\)").Value.Replace(",", "")
+                            max = Convert.ToUInt32(Strings.Left(s_max, s_max.Length - 1))
+                        End If
+                        'Add tier
+                        Dim new_tier As Tier
+                        If initial_analysis = True Then
+                            Dim limit As UInteger = Calculate_Limit(value, max)
+                            new_tier = New Tier(name, value, max, limit)
+                            Tiers_Setup.Add(new_tier)
+                        Else
+                            new_tier = New Tier(name, value, max)
+                            Tiers_Download.Add(new_tier)
+                        End If
                     End If
                 End If
             Next
@@ -596,12 +599,10 @@ Public Class Form_Main
                 Tiers_Setup(i).Max = dl_tier.Max
                 If (Tiers_Setup(i).Value < Tiers_Setup(i).Max And Tiers_Setup(i).Max = Tiers_Setup(i).Limit And Tiers_Setup(i).Marked = True) Or
                    (Tiers_Setup(i).Value >= Tiers_Setup(i).Limit And Tiers_Setup(i).Max <> Tiers_Setup(i).Limit And Tiers_Setup(i).Marked = True) Then
-
                     If Timer_Downloader.Enabled = True Then
                         Disable_Timer()
                         Alert()
                     End If
-
                 End If
             Next
             Return True
@@ -616,7 +617,7 @@ Public Class Form_Main
     ''' </summary>
     Private Sub Timer_Downloader_Tick(sender As Object, e As EventArgs) Handles Timer_Downloader.Tick
         If My.Computer.Network.IsAvailable = True Then
-            If custom_counter >= custom_inteval Then
+            If custom_counter >= custom_interval Then
                 custom_counter = 1
                 If CLV_Tiers.CheckedItems.Count <> 0 Then
                     If Download_Tiers_continuous() = True Then
@@ -690,7 +691,7 @@ Public Class Form_Main
     ''' <param name="value">current number of backers</param>
     ''' <param name="max">maximum number of backers</param>
     ''' <returns>Limit</returns>
-    Private Function Calculate_Limit(ByVal value As UInteger, ByVal max As UInteger) As UInteger
+    Private Shared Function Calculate_Limit(value As UInteger, max As UInteger) As UInteger
         Dim limit As UInteger
         Dim diff As UInteger = max - value
         If max > 10 And diff > 10 Then
@@ -706,7 +707,7 @@ Public Class Form_Main
     ''' </summary>
     ''' <param name="download_size">size of download in kb</param>
     ''' <returns>rounded size of download in kB or MB</returns>
-    Private Function Compute_Download_Unit(ByVal download_size As Decimal) As String
+    Private Function Compute_Download_Unit(download_size As Decimal) As String
         counter_dl_size += Convert.ToDecimal(Math.Ceiling(download_size))
         If counter_dl_size > 1024 Then
             Return (Convert.ToString(Math.Round(counter_dl_size / 1024, 2)) & " MB")
@@ -720,7 +721,7 @@ Public Class Form_Main
     ''' </summary>
     ''' <param name="text">String to remove linebreaks on</param>
     ''' <returns>String with no linebreaks</returns>
-    Private Function Remove_Linebreak(ByVal text As String)
+    Private Shared Function Remove_Linebreak(text As String)
         Dim result As String = text
         result = result.Replace(vbCr, "")
         result = result.Replace(vbLf, "")
@@ -733,11 +734,11 @@ Public Class Form_Main
         Private Declare Function Flash_Window_Ex Lib "User32" Alias "FlashWindowEx" (ByRef fw_info As FLASHWINDOWINFO) As Boolean
 
         Public Enum Flash_Window_Flags As UInt32
-            FLASHWINDOW_STOP = 0
+            'FLASHWINDOW_STOP = 0
             FLASHWINDOW_CAPTION = 1
             FLASHWINDOW_TRAY = 2
-            FLASHWINDOW_ALL = 3
-            FLASHWINDOW_TIMER = 4
+            'FLASHWINDOW_ALL = 3
+            'FLASHWINDOW_TIMER = 4
             FLASHWINDOW_TIMERNOFG = 12
         End Enum
 
@@ -749,7 +750,7 @@ Public Class Form_Main
             Public timeout As UInt32
         End Structure
 
-        Public Shared Sub Flash_Window(ByRef handle As IntPtr, ByVal title_bar As Boolean, ByVal tray As Boolean, ByVal count As UInteger)
+        Public Shared Sub Flash_Window(ByRef handle As IntPtr, title_bar As Boolean, tray As Boolean, count As UInteger)
             If handle = Nothing Then Exit Sub
             Try
                 Dim fwi As New FLASHWINDOWINFO
@@ -771,16 +772,16 @@ Public Class Form_Main
 #Region "Keyboard_Simulator implementation"
     Public Class Keyboard_Simulator
 
-        Declare Function Keybd_Event Lib "user32" Alias "keybd_event" (ByVal bVk As Byte, ByVal bScan As Byte, ByVal dwFlags As Integer, ByVal dwExtraInfo As Integer) As Integer
+        Declare Function Keybd_Event Lib "user32" Alias "keybd_event" (bVk As Byte, bScan As Byte, dwFlags As Integer, dwExtraInfo As Integer) As Integer
 
         Private Const KEYEVENTF_EXTENDEDKEY As Integer = &H1
         Private Const KEYEVENTF_KEYUP As Integer = &H2
 
-        Public Shared Sub Simulate_Key_Down(ByVal key As Keys)
+        Public Shared Sub Simulate_Key_Down(key As Keys)
             Keybd_Event(key, 0, KEYEVENTF_EXTENDEDKEY, 0)
         End Sub
 
-        Public Shared Sub Simulate_Key_Up(ByVal key As Keys)
+        Public Shared Sub Simulate_Key_Up(key As Keys)
             Keybd_Event(key, 0, KEYEVENTF_EXTENDEDKEY Or KEYEVENTF_KEYUP, 0)
         End Sub
     End Class

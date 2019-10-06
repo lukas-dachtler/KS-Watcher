@@ -2,7 +2,7 @@
 
 Public Class LoopStream
     Inherits WaveStream
-    Private source_stream As WaveStream
+    Private ReadOnly source_stream As WaveStream
 
     ''' <summary>
     ''' Creates a new LoopStream.
@@ -14,21 +14,21 @@ Public Class LoopStream
         EnableLooping = True
     End Sub
 
-    Public Property EnableLooping() As Boolean
+    Public Property EnableLooping As Boolean
 
-    Public Overrides ReadOnly Property WaveFormat() As WaveFormat
+    Public Overrides ReadOnly Property WaveFormat As WaveFormat
         Get
             Return source_stream.WaveFormat
         End Get
     End Property
 
-    Public Overrides ReadOnly Property Length() As Long
+    Public Overrides ReadOnly Property Length As Long
         Get
             Return source_stream.Length
         End Get
     End Property
 
-    Public Overrides Property Position() As Long
+    Public Overrides Property Position As Long
         Get
             Return source_stream.Position
         End Get
@@ -38,17 +38,17 @@ Public Class LoopStream
     End Property
 
     Public Overrides Function Read(buffer As Byte(), offset As Integer, count As Integer) As Integer
-        Dim totalBytesRead As Integer = 0
-        While totalBytesRead < count
-            Dim bytesRead As Integer = source_stream.Read(buffer, offset + totalBytesRead, count - totalBytesRead)
-            If bytesRead = 0 Then
+        Dim total_bytes = 0
+        While total_bytes < count
+            Dim bytes As Integer = source_stream.Read(buffer, offset + total_bytes, count - total_bytes)
+            If bytes = 0 Then
                 If source_stream.Position = 0 OrElse Not EnableLooping Then
                     Exit While
                 End If
                 source_stream.Position = 0
             End If
-            totalBytesRead += bytesRead
+            total_bytes += bytes
         End While
-        Return totalBytesRead
+        Return total_bytes
     End Function
 End Class

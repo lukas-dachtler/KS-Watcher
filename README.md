@@ -1,4 +1,4 @@
-# KS-Watcher 2.1 [Download](http://molistum.de/ks-watcher/)
+# KS-Watcher 2.2 [Download](http://molistum.de/ks-watcher/)
 <img src="/icon/KS-Watcher.ico" width="120"/>
 
 ### Short description:

@@ -7,7 +7,7 @@
     ''' <param name="p_Value">current number of backers</param>
     ''' <param name="p_Max">maximum number of backers</param>
     ''' <param name="p_Limit">custom limit for tier</param>
-    Public Sub New(ByVal p_Title As String, ByVal p_Value As UInteger, ByVal p_Max As UInteger, ByVal p_Limit As UInteger)
+    Public Sub New(p_Title As String, p_Value As UInteger, p_Max As UInteger, p_Limit As UInteger)
         Title = p_Title
         i_Value = p_Value
         i_Max = p_Max
@@ -21,7 +21,7 @@
     ''' <param name="p_Title">title of tier</param>
     ''' <param name="p_Value">current number of backers</param>
     ''' <param name="p_Max">maximum number of backers</param>
-    Public Sub New(ByVal p_Title As String, ByVal p_Value As UInteger, ByVal p_Max As UInteger)
+    Public Sub New(p_Title As String, p_Value As UInteger, p_Max As UInteger)
         Title = p_Title
         i_Value = p_Value
         i_Max = p_Max
@@ -43,34 +43,34 @@
     Public Property Title As String
 
     Private i_Value As UInteger
-    Public Property Value() As UInteger
+    Public Property Value As UInteger
         Get
             Return i_Value
         End Get
-        Set(ByVal value As UInteger)
-            i_Value = value
+        Set(arg As UInteger)
+            i_Value = arg
             Form_Main.CLV_Tiers.Items.Item(Index).SubItems.Item(1).Text = i_Max.ToString + " / " + i_Value.ToString
         End Set
     End Property
 
     Private i_Max As UInteger
-    Public Property Max() As UInteger
+    Public Property Max As UInteger
         Get
             Return i_Max
         End Get
-        Set(ByVal value As UInteger)
-            i_Max = value
+        Set(arg As UInteger)
+            i_Max = arg
             Form_Main.CLV_Tiers.Items.Item(Index).SubItems.Item(1).Text = i_Max.ToString + " / " + i_Value.ToString
         End Set
     End Property
 
     Private i_Limit As UInteger
-    Public Property Limit() As UInteger
+    Public Property Limit As UInteger
         Get
             Return i_Limit
         End Get
-        Set(ByVal value As UInteger)
-            i_Limit = value
+        Set(arg As UInteger)
+            i_Limit = arg
             Form_Main.CLV_Tiers.Items.Item(Index).SubItems.Item(2).Text = i_Limit.ToString
         End Set
     End Property

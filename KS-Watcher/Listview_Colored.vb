@@ -16,7 +16,7 @@ Public Class Listview_Colored
     End Sub
 
 #Region "Drawing implementation"
-    Private Sub CLV_DrawItem(ByVal sender As Object, ByVal e As DrawListViewItemEventArgs) Handles MyBase.DrawItem
+    Private Sub CLV_DrawItem(sender As Object, e As DrawListViewItemEventArgs) Handles MyBase.DrawItem
         If e.Item.Tag = "cms" Then
             e.Graphics.FillRectangle(New SolidBrush(FromArgb(225, 225, 225)), e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height)
         Else
@@ -25,15 +25,15 @@ Public Class Listview_Colored
         If e.Item.Checked = True Then
             e.Graphics.DrawRectangle(New Pen(Brushes.Black, 2), e.Bounds.X + 5, e.Bounds.Y + 5, 12, 12)
             e.Graphics.FillRectangle(New SolidBrush(color_ks_primary), e.Bounds.X + 5, e.Bounds.Y + 5, 12, 12)
-            e.Graphics.DrawString(e.Item.Text, MyBase.Font, New SolidBrush(color_ks_primary), e.Bounds.X + 20, e.Bounds.Y + 2, New StringFormat(HorizontalAlignment.Left))
+            e.Graphics.DrawString(e.Item.Text, Font, New SolidBrush(color_ks_primary), e.Bounds.X + 20, e.Bounds.Y + 2, New StringFormat(HorizontalAlignment.Left))
         Else
             e.Graphics.DrawRectangle(New Pen(Brushes.Black, 2), e.Bounds.X + 5, e.Bounds.Y + 5, 12, 12)
             e.Graphics.FillRectangle(Brushes.White, e.Bounds.X + 5, e.Bounds.Y + 5, 12, 12)
-            e.Graphics.DrawString(e.Item.Text, MyBase.Font, Brushes.Black, e.Bounds.X + 20, e.Bounds.Y + 2, New StringFormat(HorizontalAlignment.Left))
+            e.Graphics.DrawString(e.Item.Text, Font, Brushes.Black, e.Bounds.X + 20, e.Bounds.Y + 2, New StringFormat(HorizontalAlignment.Left))
         End If
     End Sub
 
-    Private Sub CLV_DrawSubItem(ByVal sender As Object, ByVal e As DrawListViewSubItemEventArgs) Handles MyBase.DrawSubItem
+    Private Sub CLV_DrawSubItem(sender As Object, e As DrawListViewSubItemEventArgs) Handles MyBase.DrawSubItem
         Dim r As Rectangle = e.Bounds
         r.Y += 2
         If e.ColumnIndex > 0 Then
@@ -43,39 +43,39 @@ Public Class Listview_Colored
                 e.Graphics.FillRectangle(Brushes.White, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height)
             End If
             If e.ColumnIndex = 1 And (Tiers_Setup(e.Item.Index).Value = Tiers_Setup(e.Item.Index).Max) Then
-                e.Graphics.DrawString(e.SubItem.Text, MyBase.Font, New SolidBrush(Color.FromArgb(164, 24, 24)), r, New StringFormat(HorizontalAlignment.Right))
+                e.Graphics.DrawString(e.SubItem.Text, Font, New SolidBrush(FromArgb(164, 24, 24)), r, New StringFormat(HorizontalAlignment.Right))
             Else
                 If e.Item.Checked = True Then
-                    e.Graphics.DrawString(e.SubItem.Text, MyBase.Font, New SolidBrush(color_ks_primary), r, New StringFormat(HorizontalAlignment.Right))
+                    e.Graphics.DrawString(e.SubItem.Text, Font, New SolidBrush(color_ks_primary), r, New StringFormat(HorizontalAlignment.Right))
                 Else
-                    e.Graphics.DrawString(e.SubItem.Text, MyBase.Font, Brushes.Black, r, New StringFormat(HorizontalAlignment.Right))
+                    e.Graphics.DrawString(e.SubItem.Text, Font, Brushes.Black, r, New StringFormat(HorizontalAlignment.Right))
                 End If
             End If
         End If
     End Sub
 
-    Private Sub CLV_DrawColumnHeader(ByVal sender As Object, ByVal e As DrawListViewColumnHeaderEventArgs) Handles MyBase.DrawColumnHeader
+    Private Sub CLV_DrawColumnHeader(sender As Object, e As DrawListViewColumnHeaderEventArgs) Handles MyBase.DrawColumnHeader
         e.Graphics.FillRectangle(New SolidBrush(color_ks_primary), e.Bounds)
-        e.Graphics.DrawString(e.Header.Text, MyBase.Font, New SolidBrush(color_ks_secondary), e.Bounds, New StringFormat(e.Header.TextAlign))
+        e.Graphics.DrawString(e.Header.Text, Font, New SolidBrush(color_ks_secondary), e.Bounds, New StringFormat(e.Header.TextAlign))
     End Sub
 #End Region
 
-    Private Sub CLV_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs) Handles MyBase.MouseUp
+    Private Sub CLV_MouseUp(sender As Object, e As MouseEventArgs) Handles MyBase.MouseUp
         If e.Button = MouseButtons.Right Then
             For Each item As ListViewItem In Items
                 If item.Bounds.Contains(e.Location) = True Then
                     item.Tag = "cms"
-                    frm_custom_cms.selected_index = item.Index
-                    frm_custom_cms.Location = Cursor.Position
-                    frm_custom_cms.Update_Limit()
-                    frm_custom_cms.Show()
+                    Form_Custom_CMS.selected_index = item.Index
+                    Form_Custom_CMS.Location = Cursor.Position
+                    Form_Custom_CMS.Update_Limit()
+                    Form_Custom_CMS.Show()
                     Exit Sub
                 End If
             Next
         End If
     End Sub
 
-    Private Sub CLV_MouseMove(ByVal sender As Object, ByVal e As MouseEventArgs) Handles MyBase.MouseMove
+    Private Sub CLV_MouseMove(sender As Object, e As MouseEventArgs) Handles MyBase.MouseMove
         Dim item As ListViewItem = GetItemAt(e.X, e.Y)
         If item IsNot Nothing AndAlso item.Tag Is Nothing Then
             Invalidate(item.Bounds)
@@ -85,13 +85,13 @@ Public Class Listview_Colored
         End If
     End Sub
 
-    Private Sub CLV_ItemChecked(ByVal sender As Object, ByVal e As ItemCheckedEventArgs) Handles MyBase.ItemChecked
-        Try
+    Private Shared Sub CLV_ItemChecked(sender As Object, e As ItemCheckedEventArgs) Handles MyBase.ItemChecked
+        If (e.Item.Index < Tiers_Setup.Count) Then
             Tiers_Setup(e.Item.Index).Marked = e.Item.Checked
-        Catch : End Try
+        End If
     End Sub
 
-    Private Sub CLV_Invalidated(ByVal sender As Object, ByVal e As InvalidateEventArgs) Handles MyBase.Invalidated
+    Private Sub CLV_Invalidated(sender As Object, e As InvalidateEventArgs) Handles MyBase.Invalidated
         For Each item As ListViewItem In Items
             If item Is Nothing Then Return
             If item.Tag <> "cms" Then
@@ -100,7 +100,7 @@ Public Class Listview_Colored
         Next
     End Sub
 
-    Private Sub CLV_ColumnWidthChanged(ByVal sender As Object, ByVal e As ColumnWidthChangingEventArgs) Handles MyBase.ColumnWidthChanging
+    Private Sub CLV_ColumnWidthChanged(sender As Object, e As ColumnWidthChangingEventArgs) Handles MyBase.ColumnWidthChanging
         e.Cancel = True
         e.NewWidth = Columns.Item(e.ColumnIndex).Width
     End Sub

@@ -1,5 +1,4 @@
-﻿Imports System
-Imports System.Reflection
+﻿Imports System.Reflection
 Imports System.Runtime.InteropServices
 
 ' Allgemeine Informationen über eine Assembly werden über die folgenden 
@@ -18,7 +17,7 @@ Imports System.Runtime.InteropServices
 <Assembly: ComVisible(False)>
 
 'Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird.
-<Assembly: Guid("66859d44-40aa-4082-8f9f-b6c89888d185")>
+<Assembly: Guid("4e5d542d-a537-4d80-9109-3508613d2c5c")>
 
 ' Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 '
@@ -31,5 +30,5 @@ Imports System.Runtime.InteropServices
 ' übernehmen, indem Sie "*" eingeben:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.1.0.0")>
-<Assembly: AssemblyFileVersion("2.1.0.0")>
+<Assembly: AssemblyVersion("2.2.0.0")>
+<Assembly: AssemblyFileVersion("2.2.0.0")>

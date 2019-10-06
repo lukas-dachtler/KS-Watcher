@@ -2,7 +2,7 @@
 Imports System.Drawing.Color
 Imports System.Text.RegularExpressions
 
-Public Class frm_custom_cms
+Public Class Form_Custom_CMS
 
     Public Btn_Select_All As New Button_Colored
     Public Btn_Deselect_All As New Button_Colored
@@ -46,7 +46,7 @@ Public Class frm_custom_cms
         Btn_Change_Limit.TextAlign = ContentAlignment.MiddleLeft
         Btn_Change_Limit.Text = Form_Main.Lib_Language_Active.s_btn_change_limit
         AddHandler Btn_Change_Limit.Click, AddressOf Btn_Change_Limit_Click
-        AddHandler Btn_Change_Limit.LostFocus, AddressOf btn_change_limit_LostFocus
+        AddHandler Btn_Change_Limit.LostFocus, AddressOf Btn_Change_Limit_LostFocus
 
         Btn_Select_All.Font = New Font("Arial", 8.0!, FontStyle.Bold, GraphicsUnit.Point, 0)
         Btn_Select_All.Size = New Size(152, 25)
@@ -83,7 +83,7 @@ Public Class frm_custom_cms
 
     Private Sub Tb_Change_Limit_LostFocus(sender As Object, e As EventArgs)
         If (Btn_Change_Limit.Focused = False And Btn_Select_All.Focused = False And Btn_Deselect_All.Focused = False) Then
-            Form_Main.CLV_Tiers.clv_Clear_Highlight()
+            Form_Main.CLV_Tiers.CLV_Clear_Highlight()
             Hide()
         End If
     End Sub
@@ -107,33 +107,33 @@ Public Class frm_custom_cms
 
     Private Sub Btn_Change_Limit_LostFocus(sender As Object, e As EventArgs)
         If (Tb_Change_Limit.Focused = False And Btn_Select_All.Focused = False And Btn_Select_All.Focused = False) Then
-            Form_Main.CLV_Tiers.clv_Clear_Highlight()
+            Form_Main.CLV_Tiers.CLV_Clear_Highlight()
             Hide()
         End If
     End Sub
 
     Private Sub Btn_Select_All_Click(sender As Object, e As EventArgs)
-        Form_Main.CLV_Tiers.clv_Select_All_Items()
-        Form_Main.CLV_Tiers.clv_Clear_Highlight()
+        Form_Main.CLV_Tiers.CLV_Select_All_Items()
+        Form_Main.CLV_Tiers.CLV_Clear_Highlight()
         Hide()
     End Sub
 
     Private Sub Btn_Select_All_LostFocus(sender As Object, e As EventArgs)
         If (Tb_Change_Limit.Focused = False And Btn_Change_Limit.Focused = False And Btn_Deselect_All.Focused = False) Then
-            Form_Main.CLV_Tiers.clv_Clear_Highlight()
+            Form_Main.CLV_Tiers.CLV_Clear_Highlight()
             Hide()
         End If
     End Sub
 
     Private Sub Btn_Deselect_All_Click(sender As Object, e As EventArgs)
-        Form_Main.CLV_Tiers.clv_Deselect_All_Items()
-        Form_Main.CLV_Tiers.clv_Clear_Highlight()
+        Form_Main.CLV_Tiers.CLV_Deselect_All_Items()
+        Form_Main.CLV_Tiers.CLV_Clear_Highlight()
         Hide()
     End Sub
 
     Private Sub Btn_Deselect_All_LostFocus(sender As Object, e As EventArgs)
         If (Tb_Change_Limit.Focused = False And Btn_Change_Limit.Focused = False And Btn_Select_All.Focused = False) Then
-            Form_Main.CLV_Tiers.clv_Clear_Highlight()
+            Form_Main.CLV_Tiers.CLV_Clear_Highlight()
             Hide()
         End If
     End Sub
